@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div style="font-weight: 800; color: var(--accent-color);">CyberTarcza</div>
+        <a href="index.html" class="back-link">← Powrót</a>
+    </nav>
+    <main>
+    <div class="card" style="text-align: center;">
+        <h1>Wielki Quiz Wiedzy</h1>
+        <p>Sprawdź, czy jesteś gotowy na wyzwania współczesnego internetu. Rozwiąż krótki test i otrzymaj certyfikat!</p>
+        
+
+            <div id="quiz-box">
+    <h2 id="question">Gotowy na test?</h2>
+    <div id="options" style="display: flex; flex-direction: column; gap: 10px; margin: 20px 0;"></div>
+    <p id="score-display"></p>
+    <button id="start-btn" onclick="startQuiz()" style="padding: 1rem 2rem; background: var(--accent-color); border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">ROZPOCZNIJ</button>
+</div>
+
+<script>
+    const questions = [
+        { q: "Czy bank może poprosić Cię o hasło przez telefon?", a: ["Tak", "Nie", "Tylko w sytuacjach awaryjnych"], correct: 1 },
+        { q: "Co oznacza zielona kłódka przy adresie strony?", a: ["Strona jest w 100% bezpieczna", "Połączenie jest szyfrowane", "Strona należy do rządu"], correct: 1 },
+        { q: "Dwuetapowa weryfikacja (2FA) to:", a: ["Zbędne utrudnienie", "Dodatkowa warstwa ochrony", "Wirus"], correct: 1 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    function startQuiz() {
+        document.getElementById('start-btn').style.display = 'none';
+        showQuestion();
+    }
+
+    function showQuestion() {
+        if (currentQ < questions.length) {
+            const q = questions[currentQ];
+            document.getElementById('question').innerText = q.q;
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.a.forEach((ans, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = ans;
+                btn.style.cssText = "padding: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--accent-color); border-radius: 5px; cursor: pointer;";
+                btn.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function checkAnswer(idx) {
+        if (idx === questions[currentQ].correct) score++;
+        currentQ++;
+        showQuestion();
+    }
+
+    function finishQuiz() {
+        document.getElementById('quiz-box').innerHTML = `
+            <h2>Koniec testu!</h2>
+            <p style="font-size: 2rem;">Twój wynik: ${score}/${questions.length}</p>
+            <div style="border: 4px double var(--accent-color); padding: 20px; margin-top: 20px;">
+                <h3>CERTYFIKAT CYBER-STRAŻNIKA</h3>
+                <p>Przyznany dla Użytkownika strony CyberTarcza</p>
+            </div>
+        `;
+    }
+</script>
+        </div>
+ 
+    </div>
+</main>
+</body>
+</html>

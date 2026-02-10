@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div style="font-weight: 800; color: var(--accent-color);">CyberTarcza</div>
+        <a href="index.html" class="back-link">← Powrót</a>
+    </nav>
+    <main>
+    <div class="card">
+        <h1>Mapa Zagrożeń</h1>
+        <p>Internet to nie tylko kopalnia wiedzy, ale też miejsce, gdzie działają oszuści. Poznaj ich metody:</p>
+        
+        <h3>1. Phishing</h3>
+        <p>Fałszywe e-maile od "banku" lub "kuriera". Ich celem jest wyłudzenie Twoich danych do logowania.</p>
+        
+        <h3>2. Ransomware</h3>
+        <p>Złośliwe oprogramowanie, które szyfruje Twoje pliki i żąda okupu za ich odblokowanie.</p>
+        
+        <h3>3. Publiczne Wi-Fi</h3>
+        <p>Nigdy nie loguj się do banku, korzystając z otwartej sieci w kawiarni czy na dworcu – ktoś może "podsłuchiwać" Twój ruch.</p>
+
+<style>
+    .phishing-app {
+        background: #ffffff;
+        color: #1a1a1a;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        max-width: 600px;
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+        text-align: left;
+    }
+
+    .email-top {
+        background: #f1f5f9;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .email-body {
+        padding: 20px;
+        position: relative;
+    }
+
+    /* Styl dla pułapek */
+    .red-flag {
+        display: inline-block;
+        border-bottom: 2px dashed transparent;
+        cursor: crosshair;
+        transition: all 0.3s;
+    }
+
+    .red-flag:hover {
+        background: rgba(255, 0, 0, 0.1);
+        border-bottom: 2px dashed #ef4444;
+    }
+
+    .red-flag.found {
+        background: #fee2e2 !important;
+        border-bottom: 2px solid #ef4444 !important;
+        color: #b91c1c;
+    }
+
+    .status-bar {
+        background: #0f172a;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .feedback-toast {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: #10b981;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        display: none;
+        animation: fadeIn 0.3s;
+    }
+
+    .btn-report {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<div class="phishing-app">
+    <div class="status-bar">
+        <span>Znalezione błędy: <strong id="flags-count">0</strong>/4</span>
+        <span id="scan-status">🔍 Skanuj wiadomość...</span>
+    </div>
+
+    <div class="email-top">
+        <div><strong>Od:</strong> <span class="red-flag" data-msg="Błąd w domenie: 'netfIix' przez duże 'I' zamiast 'l'!">support@billing-netfIix.com</span></div>
+        <div><strong>Temat:</strong> Twoje konto zostanie zawieszone za 24h!</div>
+    </div>
+
+    <div class="email-body">
+        <p>Drogi użytkowniku,</p>
+        <p>Mamy problem z Twoją <span class="red-flag" data-msg="Błędy ortograficzne/językowe często zdradzają oszustów.">metodą płatnośći</span>. Jeśli nie zaktualizujesz danych, Twoja subskrypcja wygaśnie.</p>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="#" class="red-flag" data-msg="Przyciski w mailach to najczęstsza pułapka. Prawdziwe strony wymagają logowania bezpośrednio w przeglądarce." 
+               style="background: #e50914; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px;">ZAKTUALIZUJ TERAZ</a>
+        </div>
+
+        <p>Z poważaniem,<br>Zespół Bezpieczeństwa</p>
+        <p style="font-size: 10px; color: #999;">P.S. Wiadomość wygenerowana <span class="red-flag" data-msg="Presja czasu to manipulacja psychologiczna (socjotechnika).">automatycznie - nie odpowiadaj</span>.</p>
+        
+        <div id="toast" class="feedback-toast">Dobry strzał!</div>
+    </div>
+</div>
+
+<div style="text-align: center;">
+    <button class="btn-report" onclick="checkFinal()">ZGŁOŚ JAKO PHISHING</button>
+</div>
+
+<script>
+    let foundCount = 0;
+    const totalFlags = 4;
+    const flags = document.querySelectorAll('.red-flag');
+    const display = document.getElementById('flags-count');
+    const toast = document.getElementById('toast');
+
+    flags.forEach(flag => {
+        flag.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!this.classList.contains('found')) {
+                this.classList.add('found');
+                foundCount++;
+                display.innerText = foundCount;
+                
+                // Pokaż wyjaśnienie
+                showToast(this.getAttribute('data-msg'));
+                
+                if (foundCount === totalFlags) {
+                    document.getElementById('scan-status').innerText = "✅ Wszystkie pułapki wykryte!";
+                    document.getElementById('scan-status').style.color = "#10b981";
+                }
+            }
+        });
+    });
+
+    function showToast(msg) {
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        toast.style.background = '#0284c7';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+
+    function checkFinal() {
+        if (foundCount < totalFlags) {
+            alert(`Uważaj! Przeoczyłeś jeszcze ${totalFlags - foundCount} podejrzane elementy. Przyjrzyj się nadawcy i treści.`);
+        } else {
+            alert("Świetnie! Masz oko detektywa. Ta wiadomość to ewidentna próba wyłudzenia danych. Tak trzymać!");
+        }
+    }
+</script>
+  
+
+
+
+    </div>
+</main>
+</body>
+</html>

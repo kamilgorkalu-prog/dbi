@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberTarcza | Dzień Bezpiecznego Internetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styl.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --accent-color: #38bdf8;
+            --text-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+   
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        
+        .features {
+            padding: 5rem 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            transition: border 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { display: none; } 
+        }
+
+        .card-link {
+    text-decoration: none; 
+    color: inherit;       
+    display: block;        
+}
+
+
+.card-link:hover .card {
+    transform: scale(1.03);
+    border-color: var(--accent-color);
+}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">CyberTarcza</div>
+        <ul>
+            <li><a href="hasla.html">Hasła</a></li>
+            <li><a href="zagrozenia.html">Zagrożenia</a></li>
+            <li><a href="dobrostan.html">Dobrostan</a></li>
+            <li><a href="rodzina.html">Edukacja</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Bądź Architektem Swojego Bezpieczeństwa</h1>
+        <p>Z okazji Dnia Bezpiecznego Internetu przygotowaliśmy dla Ciebie zestaw narzędzi, które pomogą Ci chronić Twoją cyfrową tożsamość.</p>
+        <a href="#start" class="cta-button">Rozpocznij Naukę</a>
+    </header>
+
+    <section class="features" id="start">
+        <a href="hasla.html" class="card-link">
+        <div class="card">
+            <h3>Laboratorium Haseł</h3>
+            <p>Dowiedz się, jak tworzyć pancerne zabezpieczenia, których nie złamie żaden bot.</p>
+        </div>
+        </a>
+        <a href="zagrozenia.html" class="card-link">
+        <div class="card">
+            <h3>Mapa Zagrożeń</h3>
+            <p>Poznaj techniki stosowane przez hakerów i naucz się je rozpoznawać w sekundę.</p>
+        </div>
+        </a>
+        <a href="dobrostan.html" class="card-link">
+        <div class="card">
+            <h3>Cyfrowy Dobrostan</h3>
+            <p>Zadbaj o swój umysł. Dowiedz się, jak zachować balans między online a offline.</p>
+        </div>
+    </a>
+        <a href="rodzina.html" class="card-link">
+        <div class="card">
+            <h3>Dla Bliskich</h3>
+            <p>Gotowe poradniki dla Twoich rodziców i dziadków. Pomóż im zadbać o bezpieczeństwo.</p>
+        </div>
+        </a>
+        <a href="quiz.html" class="card-link">
+        <div class="card">
+            <h3>Centrum Wiedzy</h3>
+            <p>Sprawdź swoją wiedzę w naszym quizie i zdobądź certyfikat Cyber-Strażnika.</p>
+        </div>
+        </a>
+    </section>
+
+    <footer>
+        &copy; 2026 CyberTarcza - Projekt przygotowany na Dzień Bezpiecznego Internetu.
+    </footer>
+
+</body>
+</html>
